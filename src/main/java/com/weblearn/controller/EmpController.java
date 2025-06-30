@@ -49,7 +49,7 @@ public class EmpController {
     // 这里补充一下 框架约束：Spring 的注解（如 @GetMapping、@PostMapping 等）要求方法必须是 public，否则不会被注册为处理器，因此，REST API 的方法必须保持 public 访问级别。
 
 
-    // 测试一下更新仓库
+    // 台式端做了一个跟新
 
 
 
