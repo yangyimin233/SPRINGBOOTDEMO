@@ -7,6 +7,7 @@ import com.weblearn.service.EmpService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,8 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class EmpController {
 
-    @Autowired
+
+
     // 这里可以注入一个EmpService服务接口，后面会有实现类来实现这个接口
+    // Qualifier 搭配autowried使用 指定要注入哪个类
+    // 在对应的实现类中，我们会采用@SERVICE（）后面属性 指定 标签，没加属性，默认标签为类名小写
+    @Qualifier("empServiceImplB") // 指定注入 EmpServiceImplB 实现类
+    @Autowired
+
     private EmpService empService;
 
     // 分页查询员工信息
@@ -49,8 +56,6 @@ public class EmpController {
     // 这里补充一下 框架约束：Spring 的注解（如 @GetMapping、@PostMapping 等）要求方法必须是 public，否则不会被注册为处理器，因此，REST API 的方法必须保持 public 访问级别。
 
 
-    // 台式端做了一个跟新
-    // GitHub端做一个测试
 
 
 }

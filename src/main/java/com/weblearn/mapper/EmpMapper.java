@@ -24,6 +24,10 @@ public interface EmpMapper {
     Long count(); // 这里还是跟PageBean对应起来比较好
 
 
+    // 这个方法给那个测试pagehelper的方法用一下，pagehelper插件只需要调用全部查询的mapper接口就可以
+    @Select("SELECT * FROM emp")
+    List<Emp> mapperForPagehelper();
+
 
 
 
