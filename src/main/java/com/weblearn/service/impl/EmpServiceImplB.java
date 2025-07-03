@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -38,14 +39,18 @@ public class EmpServiceImplB implements EmpService {
 
     @Override
     // 这是采用pagehelper插件去做这个分页查询的实现
-    public PageBean page(Integer page, Integer pageSize) {
+    public PageBean page(Integer page, Integer pageSize,
+                         String name,
+                         Short gender,
+                         LocalDate begin,
+                         LocalDate end) {
 
 
         // 1. 设置分页参数 ,直接调用插件里面的这个方法
         PageHelper.startPage(page, pageSize);
 
         // 2. 执行查询 , 还是调用mapper层的接口
-        List<Emp> empList = empMapper.mapperForPagehelper();
+        List<Emp> empList = empMapper.mapperForPagehelper(name, gender, begin, end);
         // 然后在把类型转化一下(mapper层返回的是list，这里插件里面自己带来强转的Page类型)
         Page<Emp> p = (Page<Emp>) empList;
 

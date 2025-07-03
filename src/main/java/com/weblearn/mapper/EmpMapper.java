@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Mapper
@@ -25,8 +26,17 @@ public interface EmpMapper {
 
 
     // 这个方法给那个测试pagehelper的方法用一下，pagehelper插件只需要调用全部查询的mapper接口就可以
-    @Select("SELECT * FROM emp")
-    List<Emp> mapperForPagehelper();
+
+    // 因为现在我们是引入条件的动态sql，所以这里还是需要引入xml文件来做动态sql方便一些，就不用下面这种注解的简单方式了
+//    @Select("SELECT * FROM emp")
+// 这种mappper文件的配置方法参考之前那个mybatis项目
+   // 在spring项目里面 的 那个 MyBatisDemo模块
+
+
+    List<Emp> mapperForPagehelper(String name,
+                                  Short gender,
+                                  LocalDate begin,
+                                  LocalDate end);
 
 
 

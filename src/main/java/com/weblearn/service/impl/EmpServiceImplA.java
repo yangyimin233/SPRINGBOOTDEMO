@@ -8,6 +8,7 @@ import com.weblearn.service.EmpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -20,8 +21,14 @@ public class EmpServiceImplA implements EmpService {
 
     @Override
     // 分页查询实现
-    public PageBean page(Integer page, Integer pageSize) {
+    public PageBean page(Integer page, Integer pageSize,
+                         String name,
+                         Short gender,
+                         LocalDate begin,
+                         LocalDate end) {
 //        return null;
+
+        // 注意这里先把这四个参数放进来，但是还没改具体方法，主要还是以implB为主，用他的那个插件嘛
 
         // 1. 获取总记录数
         Long count = empmapper.count();

@@ -8,10 +8,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 
 
 @Slf4j   // 这个注解打上后，调用里面的log比较方便
@@ -31,7 +33,21 @@ public class EmpController {
     // 分页查询员工信息
     @GetMapping("/emps")
     // 注意这个入口参数哦，跟之前写的一样，只要写得跟get请求里面一样，就直接传进来了
-    public Result page(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "5")  Integer pageSize) {
+
+
+    // 现在这里我们来改一下，需要分页查询上面再加上条件查询
+    // 所以这里前端传进来的请求参数还有查询条件
+    // 然后这里controller层调用service层的时候再把这些条件参数也查询传进去
+    // 同理，service层再加这个参数，调用mapper层就可以了
+    public Result page(@RequestParam(defaultValue = "1") Integer page,
+                       @RequestParam(defaultValue = "5")  Integer pageSize,
+                       String name,
+                       Short gender,
+                       @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin,
+                       @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end) {
+
+        // 这个DateTimeFormat注解是用来匹配前端传进来的时间的
+
 
         // 这是参数的默认设置，当然可以用@RequestParam里面的属性来设置
 //        if (page == null) {
@@ -41,7 +57,7 @@ public class EmpController {
 //            pageSize = 10;
 //        }
 
-        log.info("分页查询，参数：{}, {}",page,pageSize);
+        log.info("分页查询，参数：{},{},{},{},{},{}",page,pageSize,name,gender,begin,end);
 //        System.out.println("页码");
 //        System.out.println(page);
 //        // 这里可以调用service层的业务逻辑来查询员工信息
@@ -49,7 +65,9 @@ public class EmpController {
 //        return Result.success("分页查询员工信息成功");
 
         // 调用service层的接口来返回得到那个pagebean对象(每页的数据列表)，然后给他封装到result里面 ，再返回回去
-        PageBean pageBean = empService.page(page,pageSize);
+//        PageBean pageBean = empService.page(page,pageSize);
+        // 增加查询参数
+        PageBean pageBean = empService.page(page,pageSize,name,gender,begin,end);
         return Result.success(pageBean);
 
     }
