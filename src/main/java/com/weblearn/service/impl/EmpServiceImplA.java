@@ -15,6 +15,7 @@ import java.util.List;
 public class EmpServiceImplA implements EmpService {
 
 
+
     @Autowired
     private EmpMapper empmapper;
 
@@ -66,6 +67,16 @@ public class EmpServiceImplA implements EmpService {
 
         // 那他前端应该时有个计算吧，如果当前页码 超出了 当前pagesize对应的最大页码，则自动将pagesize传入值设置为最后一页。
 
+
+    }
+
+    @Override
+    public void deleteEmp(List<Integer> id) {
+        // 这里暂时不实现，现在都用implB做实现类了，这个只是演示 Service层多方法
+    }
+
+    @Override
+    public void addEmp(Emp emp) {
 
     }
 }

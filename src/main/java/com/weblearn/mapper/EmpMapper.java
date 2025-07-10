@@ -40,5 +40,12 @@ public interface EmpMapper {
 
 
 
+    // 删除员工接口
+    void mapperForDelete(List<Integer> ids);
+
+
+    // 新增员工接口
+    void mapperForAdd(Emp emp);
+
 
 }

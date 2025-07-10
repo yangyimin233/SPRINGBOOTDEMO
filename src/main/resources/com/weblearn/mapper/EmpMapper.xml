@@ -5,7 +5,45 @@
 
 <mapper namespace="com.weblearn.mapper.EmpMapper">
 
-<!--    条件查询   -->
+
+
+<!--   新增员工  -->
+
+
+    <!--    在 MyBatis 中，Emp 对象的成员变量值是通过参数绑定机制传递的。具体来说：-->
+
+    <!--    parameterType 指定类型: 在你选中的代码中，parameterType="com.weblearn.pojo.Emp" 告诉 MyBatis 这个 <insert> 映射方法会接收一个 Emp 类型的对象作为参数。-->
+    <!--    成员变量绑定: MyBatis 使用 #{} 占位符来绑定对象的成员变量值。例如：-->
+    <!--    #{name} 会从 Emp 对象中获取 name 属性的值。-->
+    <!--    #{gender} 会从 Emp 对象中获取 gender 属性的值。-->
+    <!--    其他占位符如 #{entrydate}, #{createTime}, #{updateTime} 也是类似的。-->
+    <!--    反射机制: MyBatis 内部通过 Java 的反射机制读取 Emp 对象的属性值，并将这些值替换到 SQL 语句中的占位符。-->
+    <!--    因此，只要你在调用 mapperForAdd 方法时传入了一个 Emp 对象，并且该对象的成员变量已经被正确赋值，MyBatis 就能自动将这些值映射到 SQL 语句中对应的占位符-->
+
+    <insert id="mapperForAdd" parameterType="com.weblearn.pojo.Emp">
+        INSERT INTO emp ( username, name, gender, image,job , dept_id, entrydate, create_time, update_time)
+        VALUES (#{username}, #{name}, #{gender}, #{image},#{job},#{deptId}, #{entrydate}, #{createTime}, #{updateTime})
+    </insert>
+
+
+
+    <!--    批量删除 员工-->
+
+
+    <delete id="mapperForDelete">
+
+        DELETE
+        FROM emp
+        WHERE id in
+
+--               动态语句 foreach遍历
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+
+    </delete>
+
+    <!--    条件查询   -->
     <select id="mapperForPagehelper" resultType="com.weblearn.pojo.Emp">
 
         SELECT *

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -78,6 +79,31 @@ public class EmpServiceImplB implements EmpService {
 
 
         // 看看本地commit一下的呢/
+
+
+    }
+
+    @Override
+    public void deleteEmp(List<Integer> ids) {
+
+        // 这里没啥逻辑，直接掉mapper层接口方法就行了
+        empMapper.mapperForDelete(ids);
+
+    }
+
+    @Override
+    public void addEmp(Emp emp) {
+
+        // 这里跟之前新建部门一样,需要补全一些信息在这里,比如cratetime,再传入mapper层
+        // 获取当前时间戳
+        LocalDateTime now = LocalDateTime.now();
+        // 设置创建时间和更新时间
+        emp.setCreateTime(now);
+        emp.setUpdateTime(now);
+
+        // 然后再调用emp方法
+        empMapper.mapperForAdd(emp);
+
 
 
     }
